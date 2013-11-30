@@ -52,6 +52,11 @@ if test x$enable_gssapi != xno; then
 				;;
 		esac
 		AC_DEFINE(HAVE_GSSAPI, 1, [Whether GSSAPI is available])
+	elif test "x$PKGCONFIG" != x; then
+		# Try pkg-config if it is available
+		CFLAGS="`$PKGCONFIG --cflags krb5-gssapi` $CFLAGS"
+		CPPFLAGS="`$PKGCONFIG --cflags krb5-gssapi` $CPPFLAGS"
+		LIBGSSAPI="`$PKGCONFIG --libs krb5-gssapi`"
 	else
 		# Check for vendor-specific implementations...
 		case "$uname" in
